@@ -5,12 +5,14 @@ from typing import Generator
 from app.holoscan_pipeline.operators.alert_operator import AlertOperator
 from app.holoscan_pipeline.operators.anomaly_detector import AnomalyDetectorOperator
 from app.holoscan_pipeline.operators.cuda_preprocess import CUDAPreprocessOperator
+from app.holoscan_pipeline.operators.deepstream_input import DeepStreamInputOperator
 from app.holoscan_pipeline.operators.frame_decoder import FrameDecoderOperator
 from app.holoscan_pipeline.operators.inference import TensorRTInferenceOperator
 from app.holoscan_pipeline.operators.oxygen_reader import OxygenReaderOperator
 from app.holoscan_pipeline.operators.pose_estimator import PoseEstimatorOperator
 from app.holoscan_pipeline.operators.stream_output import StreamOutputOperator
 from app.holoscan_pipeline.operators.video_input import VideoInputOperator
+from app.nvidia.holoscan_app import OptionalHoloscanOrchestrator
 from app.holoscan_pipeline.resource_manager import ResourceManager
 from app.holoscan_pipeline.scheduler import FrameScheduler
 from app.services.alert_service import AlertService
@@ -24,6 +26,8 @@ from app.utils.helpers import utc_now_iso
 class ICUMonitoringPipeline:
     def __init__(self) -> None:
         self.video_input = VideoInputOperator()
+        self.holoscan = OptionalHoloscanOrchestrator()
+        self.deepstream = DeepStreamInputOperator()
         self.decoder = FrameDecoderOperator()
         self.preprocess = CUDAPreprocessOperator()
         self.inference = TensorRTInferenceOperator()
@@ -77,6 +81,12 @@ class ICUMonitoringPipeline:
                 "fps": self.fps.tick(),
                 "updated_at": utc_now_iso(),
                 "pipeline": self.resources.describe(),
+                "operators": {
+                    "holoscan": self.holoscan.describe(),
+                    "deepstream": self.deepstream.describe(),
+                    "preprocess": self.preprocess.describe(),
+                    "inference": self.inference.describe(),
+                },
                 "source": self.video_input.loader.source_mode,
             }
             alerts = self.alert_operator.process(telemetry)

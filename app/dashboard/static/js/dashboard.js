@@ -32,15 +32,37 @@ function renderAlerts(alerts, containerId) {
   });
 }
 
+function renderAccelerators(components) {
+  const container = $('acceleratorList');
+  if (!container) return;
+  if (!components || components.length === 0) {
+    container.innerHTML = '<div class="accelerator fallback"><span>CPU demo</span><strong>Active</strong></div>';
+    return;
+  }
+
+  container.innerHTML = components.map((component) => {
+    const state = component.available ? 'available' : component.configured ? 'configured' : 'fallback';
+    const label = component.available ? 'Ready' : component.configured ? 'Configured' : 'Fallback';
+    return `<div class="accelerator ${state}">
+      <span>${component.name}</span>
+      <strong>${label}</strong>
+    </div>`;
+  }).join('');
+}
+
 function updateTelemetry(payload) {
+  const components = payload.pipeline?.nvidia?.components ?? [];
+  const activeAcceleration = payload.pipeline?.nvidia?.active_acceleration ?? [];
   setText('spo2', `${payload.spo2 ?? '--'}%`);
   setText('heartRate', payload.heart_rate ?? '--');
   setText('fps', payload.fps ?? '--');
   setText('runtime', payload.pipeline?.execution_mode ?? 'cpu-demo');
+  setText('acceleratorMode', activeAcceleration.length ? activeAcceleration.join(', ') : 'CPU fallback');
   setText('patientVisible', payload.patient_visible ? 'Yes' : 'No');
   setText('fallState', payload.fall_detected ? 'Critical' : 'Normal');
   setText('source', payload.source ?? '--');
   setText('updatedAt', payload.updated_at ? new Date(payload.updated_at).toLocaleTimeString() : '--');
+  renderAccelerators(components);
   renderAlerts(payload.active_alerts, 'alertsList');
 
   const banner = $('criticalBanner');

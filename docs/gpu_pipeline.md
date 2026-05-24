@@ -19,3 +19,22 @@ Holoscan should own production scheduling and operator orchestration. In this ap
 ## Triton
 
 `TritonInferenceClient` is included for deployments where inference runs as a model server instead of inside the app process.
+
+## Local Safety
+
+All NVIDIA integrations are optional and guarded by environment flags:
+
+```env
+ENABLE_GPU=false
+ENABLE_HOLOSCAN=false
+ENABLE_DEEPSTREAM=false
+ENABLE_TRITON=false
+```
+
+On macOS or any machine without NVIDIA libraries, the app continues to run with:
+
+- CPU thread scheduler instead of Holoscan
+- OpenCV CPU preprocessing instead of CUDA
+- OpenCV video input instead of DeepStream
+- simulated YOLO detections instead of TensorRT
+- local detector instead of Triton
