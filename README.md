@@ -6,7 +6,7 @@ The app runs immediately in CPU demo mode. If `data/sample_videos/patient_fall_d
 
 ## GPU Path
 
-The first version is intentionally runnable on my humble Mac. The file layout keeps upgrade points for:
+This V1.0 is intentionally runnable on my humble Mac. The file layout keeps upgrade points for:
 
 - NVIDIA Holoscan orchestration
 - CUDA preprocessing
