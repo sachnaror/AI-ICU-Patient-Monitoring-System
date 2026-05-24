@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ai-icu-monitor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ai-icu-monitor
+  template:
+    metadata:
+      labels:
+        app: ai-icu-monitor
+    spec:
+      containers:
+        - name: app
+          image: ai-icu-monitor:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              nvidia.com/gpu: 1

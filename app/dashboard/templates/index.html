@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ app_name }}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark"></span>
+          <div>
+            <strong>AI ICU</strong>
+            <small>Edge Monitoring</small>
+          </div>
+        </div>
+        <nav>
+          <a class="active" href="/">Live Monitor</a>
+          <a href="/alerts">Alert Log</a>
+          <a href="/docs">API Docs</a>
+        </nav>
+        <div class="pipeline-card">
+          <span>Pipeline</span>
+          <ol>
+            <li>OpenCV Input</li>
+            <li>CUDA Preprocess</li>
+            <li>YOLOv8/TensorRT</li>
+            <li>Pose + Oxygen OCR</li>
+            <li>Holoscan Alerts</li>
+          </ol>
+        </div>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <h1>{{ bed_id }}</h1>
+            <p>Real-time patient safety dashboard</p>
+          </div>
+          <div class="actions">
+            <button id="demoSource">Demo</button>
+            <button id="webcamSource">Webcam</button>
+          </div>
+        </header>
+
+        <section class="monitor-grid">
+          <div class="video-panel">
+            <img id="liveFeed" src="/video-feed" alt="Live ICU monitoring feed">
+            <div id="criticalBanner" class="critical-banner hidden">Critical alert detected</div>
+          </div>
+
+          <div class="vitals-panel">
+            <div class="metric">
+              <span>SpO2</span>
+              <strong id="spo2">--%</strong>
+            </div>
+            <div class="metric">
+              <span>Heart Rate</span>
+              <strong id="heartRate">--</strong>
+            </div>
+            <div class="metric">
+              <span>FPS</span>
+              <strong id="fps">--</strong>
+            </div>
+            <div class="metric">
+              <span>Runtime</span>
+              <strong id="runtime">CPU</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="lower-grid">
+          <div class="panel">
+            <h2>Detection State</h2>
+            <div class="state-row"><span>Patient visible</span><strong id="patientVisible">--</strong></div>
+            <div class="state-row"><span>Fall risk</span><strong id="fallState">--</strong></div>
+            <div class="state-row"><span>Source</span><strong id="source">--</strong></div>
+            <div class="state-row"><span>Updated</span><strong id="updatedAt">--</strong></div>
+          </div>
+
+          <div class="panel alerts-panel">
+            <div class="panel-title">
+              <h2>Active Alerts</h2>
+              <a href="/alerts">View all</a>
+            </div>
+            <div id="alertsList" class="alerts-list"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="/static/js/dashboard.js"></script>
+  </body>
+</html>

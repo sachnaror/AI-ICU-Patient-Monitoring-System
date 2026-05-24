@@ -1,0 +1,5 @@
+patient
+bed
+oxygen_monitor
+nurse
+fall

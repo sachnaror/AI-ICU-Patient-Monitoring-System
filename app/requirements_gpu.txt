@@ -1,0 +1,6 @@
+-r ../requirements.txt
+# Install NVIDIA stack according to host CUDA version:
+# nvidia-holoscan
+# tensorrt
+# tritonclient[grpc]
+# ultralytics

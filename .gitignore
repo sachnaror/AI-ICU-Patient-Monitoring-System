@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+data/recordings/processed/*
+data/sample_videos/*.mp4
+!data/sample_videos/.gitkeep
+app/ai_models/**/*.engine
+app/ai_models/**/*.onnx
+.env
