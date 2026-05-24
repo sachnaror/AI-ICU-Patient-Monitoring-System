@@ -4,6 +4,18 @@ Real-time ICU monitoring demo using FastAPI, OpenCV, WebSockets, and a Holoscan-
 
 The app runs immediately in CPU demo mode. If `data/sample_videos/patient_fall_demo.mp4` is missing, it generates a synthetic ICU feed with simulated patient posture, oxygen readings, fall events, bounding boxes, and dashboard alerts.
 
+## GPU Path
+
+The first version is intentionally runnable on my humble Mac. The file layout keeps upgrade points for:
+
+- NVIDIA Holoscan orchestration
+- CUDA preprocessing
+- NVIDIA DeepStream input
+- TensorRT YOLOv8 inference
+- NVIDIA Triton model serving
+
+We can ofcourse install the GPU stack on a compatible NVIDIA host.
+
 ## Features
 
 - Live browser dashboard at `http://127.0.0.1:8000`
@@ -67,14 +79,4 @@ The app will use it automatically. If absent, synthetic video is generated.
 - `POST /api/alerts/{alert_id}/acknowledge` acknowledge an alert
 - `GET /api/health` runtime and GPU health
 
-## GPU Path
 
-The first version is intentionally runnable on my humble Mac. The file layout keeps upgrade points for:
-
-- NVIDIA Holoscan orchestration
-- CUDA preprocessing
-- NVIDIA DeepStream input
-- TensorRT YOLOv8 inference
-- NVIDIA Triton model serving
-
-We can ofcourse install the GPU stack on a compatible NVIDIA host.
