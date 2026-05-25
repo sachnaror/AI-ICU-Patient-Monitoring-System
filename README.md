@@ -1,4 +1,4 @@
-# AI ICU Patient Monitoring System
+# ICU Patient AI-Monitoring System
 
 Real-time ICU patient monitoring demo using FastAPI, OpenCV, WebSockets, and a Holoscan-inspired AI pipeline layout.
 
