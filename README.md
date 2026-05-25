@@ -161,7 +161,7 @@ Expected result:
 5 passed
 ```
 
-## Architecture-First Design Philosophy
+## Architecture-First design and why i built it this way ?
 
 The objective was to learn and know the architecture, pipeline orchestration, modular design, and production-style system thinking rather than benchmarking raw NVIDIA GPU throughput. And so, i designed it with abstraction layers so it is NOT tightly coupled to CUDA, TensorRT, DeepStream, or Holoscan-specific runtimes.
 
