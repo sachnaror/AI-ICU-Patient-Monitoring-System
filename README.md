@@ -161,6 +161,27 @@ Expected result:
 5 passed
 ```
 
+## Architecture-First Design Philosophy
+
+The objective was to learn and know the architecture, pipeline orchestration, modular design, and production-style system thinking rather than benchmarking raw NVIDIA GPU throughput. And so, i designed it with abstraction layers so it is NOT tightly coupled to CUDA, TensorRT, DeepStream, or Holoscan-specific runtimes.
+
+This allows future replacement of components like:
+
+- TensorRT ...to.... ONNX Runtime
+- DeepStream ...to.... GStreamer/OpenCV
+- CUDA ...to.... Metal/Apple GPU
+- Triton ...to.... vLLM/custom inference
+
+without rewriting the core application.
+
+Although full GPU acceleration can be enabled on Ubuntu/Linux systems, but i wanted to intentionally avoid heavy infrastructure setup because i just wanted to learn the design system or arch with working proto locally. I dont wanna get into (if i make it prod ready on Linux server/syste) :
+
+- CUDA/driver version mismatch
+- TensorRT compatibility issues
+- DeepStream dependency complexity
+- Docker GPU runtime/toolkit setup
+
+The goal was to build a portable, runnable, production-style AI pipeline that works everywhere while still remaining future-ready for NVIDIA GPU deployments when needed.
 
 ## 📩 Contact
 
